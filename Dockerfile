@@ -2,7 +2,6 @@ FROM docker.n8n.io/n8nio/n8n:latest-debian
 
 USER root
 
-# If the base image is Debian buster (EOL), switch apt sources to the Debian archive
 RUN set -eux; \
   if grep -q "buster" /etc/apt/sources.list 2>/dev/null || ls /etc/apt/sources.list.d/* 2>/dev/null | xargs -r grep -q "buster"; then \
     sed -i 's|http://deb.debian.org/debian|http://archive.debian.org/debian|g' /etc/apt/sources.list || true; \
@@ -14,4 +13,5 @@ RUN set -eux; \
   apt-get install -y --no-install-recommends ffmpeg; \
   rm -rf /var/lib/apt/lists/*
 
-USER node
+# IMPORTANT: don't switch to node on Render
+# (leave user as whatever the base image expects after build)
