@@ -1,4 +1,4 @@
-FROM docker.n8n.io/n8nio/n8n:latest
+FROM docker.n8n.io/n8nio/n8n:latest-debian
 
 USER root
 RUN apt-get update \
@@ -6,5 +6,3 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 USER node
-
-CMD ["n8n"]
